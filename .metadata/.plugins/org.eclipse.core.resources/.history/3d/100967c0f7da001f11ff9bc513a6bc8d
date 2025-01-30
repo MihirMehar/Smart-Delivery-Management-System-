@@ -1,0 +1,8 @@
+package com.deliveryservices.services;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class DeliveryServiceImpl  implements DeliveryService{
+
+}

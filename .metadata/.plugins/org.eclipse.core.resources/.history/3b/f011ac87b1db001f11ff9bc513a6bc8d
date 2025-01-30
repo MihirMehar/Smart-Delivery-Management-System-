@@ -1,0 +1,13 @@
+spring.application.name=ServiceRegistry
+
+server.port = 8687
+
+#eureka config
+eureka.instance.hostname=localhost
+eureka.client.register-with-eureka=false
+eureka.client.fetch-registry=false
+eureka.server.enable-self-preservation=false
+
+eureka.client.service-url.defaultZone= http://localhost:8687/eureka
+eureka.instance.lease-renewal-interval-in-seconds=30
+eureka.instance.lease-expiration-duration-in-seconds=90

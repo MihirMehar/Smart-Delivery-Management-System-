@@ -1,0 +1,7 @@
+package com.deliveryservices.repository;
+
+
+
+public interface DeliveryRepository  extends JpaRepository<Delivery, String>{
+
+}

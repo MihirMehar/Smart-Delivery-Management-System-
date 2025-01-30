@@ -1,0 +1,18 @@
+package com.notify;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mail.javamail.JavaMailSender;
+
+@SpringBootTest
+class NotificationServiceApplicationTests {
+	
+	@Mock
+	private JavaMailSender mailSender;
+
+	@Test
+	void contextLoads() {
+	}
+
+}

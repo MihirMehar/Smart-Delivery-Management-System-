@@ -1,0 +1,5 @@
+package com.notify.entity;
+
+public class NotificationRequest {
+
+}

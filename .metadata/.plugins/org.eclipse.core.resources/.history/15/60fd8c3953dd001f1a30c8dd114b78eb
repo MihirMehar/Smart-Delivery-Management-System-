@@ -1,0 +1,27 @@
+package com.notify.config;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+
+import com.twilio.Twilio;
+
+import jakarta.annotation.PostConstruct;
+
+@Configuration
+public class TwilioConfig {
+	
+	@Value("${AC38e881108b479c794bd6b9ca4690ad6a}")
+	private String accountSid;
+	
+	@Value("${85da73b47dba1de901126e63ae5dd575}")
+	private String authToken;
+	
+	@Value("${}+17343612819")
+	private String phoneNumber;
+	
+	@PostConstruct
+	public void initTwilio() {
+		Twilio.init(accountSid,authToken);
+	}
+
+}

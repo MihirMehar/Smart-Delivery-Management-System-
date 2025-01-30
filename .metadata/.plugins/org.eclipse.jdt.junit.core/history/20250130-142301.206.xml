@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="OrderServicesApplicationTests" project="OrderServices" tests="5" started="5" failures="2" errors="0" ignored="0">
+  <testsuite name="com.orderservices.OrderServicesApplicationTests" time="0.597" displayname="OrderServicesApplicationTests" uniqueid="[engine:junit-jupiter]/[class:com.orderservices.OrderServicesApplicationTests]">
+    <testcase name="testCreatedOrder" classname="com.orderservices.OrderServicesApplicationTests" time="0.312" displayname="testCreatedOrder()" uniqueid="[engine:junit-jupiter]/[class:com.orderservices.OrderServicesApplicationTests]/[method:testCreatedOrder()]"/>
+    <testcase name="testGetOrderById_notfound" classname="com.orderservices.OrderServicesApplicationTests" time="0.052" displayname="testGetOrderById_notfound()" uniqueid="[engine:junit-jupiter]/[class:com.orderservices.OrderServicesApplicationTests]/[method:testGetOrderById_notfound()]"/>
+    <testcase name="testUpdatedOrder_Success" classname="com.orderservices.OrderServicesApplicationTests" time="0.058" displayname="testUpdatedOrder_Success()" uniqueid="[engine:junit-jupiter]/[class:com.orderservices.OrderServicesApplicationTests]/[method:testUpdatedOrder_Success()]">
+      <failure>org.opentest4j.AssertionFailedError: expected: not &lt;null&gt;&#13;
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)&#13;
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)&#13;
+	at org.junit.jupiter.api.AssertNotNull.failNull(AssertNotNull.java:49)&#13;
+	at org.junit.jupiter.api.AssertNotNull.assertNotNull(AssertNotNull.java:35)&#13;
+	at org.junit.jupiter.api.AssertNotNull.assertNotNull(AssertNotNull.java:30)&#13;
+	at org.junit.jupiter.api.Assertions.assertNotNull(Assertions.java:304)&#13;
+	at com.orderservices.OrderServicesApplicationTests.testUpdatedOrder_Success(OrderServicesApplicationTests.java:97)&#13;
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)&#13;
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)&#13;
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)&#13;
+&#13;
+</failure>
+    </testcase>
+    <testcase name="testGetOrderById" classname="com.orderservices.OrderServicesApplicationTests" time="0.058" displayname="testGetOrderById()" uniqueid="[engine:junit-jupiter]/[class:com.orderservices.OrderServicesApplicationTests]/[method:testGetOrderById()]"/>
+    <testcase name="testUpdatedOrder_NotFound" classname="com.orderservices.OrderServicesApplicationTests" time="0.083" displayname="testUpdatedOrder_NotFound()" uniqueid="[engine:junit-jupiter]/[class:com.orderservices.OrderServicesApplicationTests]/[method:testUpdatedOrder_NotFound()]">
+      <failure>
+        <expected>class com.orderservices.exception.OrderNotFoundException</expected>
+        <actual>class org.mockito.exceptions.misusing.PotentialStubbingProblem</actual>
+        org.opentest4j.AssertionFailedError: Unexpected exception type thrown, expected: &lt;com.orderservices.exception.OrderNotFoundException&gt; but was: &lt;org.mockito.exceptions.misusing.PotentialStubbingProblem&gt;&#13;
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)&#13;
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:67)&#13;
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)&#13;
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3128)&#13;
+	at com.orderservices.OrderServicesApplicationTests.testUpdatedOrder_NotFound(OrderServicesApplicationTests.java:111)&#13;
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)&#13;
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)&#13;
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)&#13;
+Caused by: org.mockito.exceptions.misusing.PotentialStubbingProblem: 
+Strict stubbing argument mismatch. Please check:
+ - this invocation of 'findById' method:
+    orderRepository.findById("99999");
+    -&gt; at com.orderservices.services.OrderServiceImpl.updateOrder(OrderServiceImpl.java:65)
+ - has following stubbing(s) with different arguments:
+    1. orderRepository.findById("12345");
+      -&gt; at com.orderservices.OrderServicesApplicationTests.testUpdatedOrder_NotFound(OrderServicesApplicationTests.java:108)
+Typically, stubbing argument mismatch indicates user mistake when writing tests.
+Mockito fails early so that you can debug potential problem easily.
+However, there are legit scenarios when this exception generates false negative signal:
+  - stubbing the same method multiple times using 'given().will()' or 'when().then()' API
+    Please use 'will().given()' or 'doReturn().when()' API for stubbing.
+  - stubbed method is intentionally invoked with different arguments by code under test
+    Please use default or 'silent' JUnit Rule (equivalent of Strictness.LENIENT).
+For more information see javadoc for PotentialStubbingProblem class.&#13;
+	at com.orderservices.services.OrderServiceImpl.updateOrder(OrderServiceImpl.java:65)&#13;
+	at com.orderservices.OrderServicesApplicationTests.lambda$1(OrderServicesApplicationTests.java:112)&#13;
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:53)&#13;
+	... 6 more&#13;
+&#13;
+
+      </failure>
+    </testcase>
+  </testsuite>
+</testrun>

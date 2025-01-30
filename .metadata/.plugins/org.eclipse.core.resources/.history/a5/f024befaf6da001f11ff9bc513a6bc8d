@@ -1,0 +1,5 @@
+package com.deliveryservices.repository;
+
+public class DeliveryRepository {
+
+}

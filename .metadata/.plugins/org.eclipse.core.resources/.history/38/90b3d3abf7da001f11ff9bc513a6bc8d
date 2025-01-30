@@ -1,0 +1,19 @@
+package com.deliveryservices.services;
+
+import java.util.List;
+
+import com.deliveryservices.entity.Delivery;
+
+public interface DeliveryService {
+	
+	//create
+	Delivery createdelivery(Delivery delivery);
+	
+	// get 
+	List<Delivery> getAllData();
+	
+	// get delivery by orderId
+	
+	List<Delivery> getdeliveryByOrderId(String deliveryId);
+
+}

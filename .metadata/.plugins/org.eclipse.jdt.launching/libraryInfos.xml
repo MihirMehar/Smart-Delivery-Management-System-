@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<libraryInfos>
+    <libraryInfo home="C:\Softwares\zulu-17" version="17.0.5"/>
+    <libraryInfo home="C:\spring-tool-suite-4.27.0\spring-tool-suite-4.27.0\sts-4.27.0.RELEASE\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.5.v20241023-1957" version="21.0.5">
+        <bootpath>
+            <entry path="null"/>
+        </bootpath>
+        <extensionDirs>
+            <entry path="null"/>
+        </extensionDirs>
+        <endorsedDirs>
+            <entry path="null"/>
+        </endorsedDirs>
+    </libraryInfo>
+    <libraryInfo home="C:\SoftwareCenterApplications\OpenJDK\openjdk-21.0.1_windows-x64_bin\jdk-21.0.1" version="21.0.1"/>
+    <libraryInfo home="C:\SoftwareCenterApplications\OpenJDK\openjdk-21.0.1_windows-x64_bin\jdk-21.0.1\bin" version="21.0.1">
+        <bootpath>
+            <entry path="null"/>
+        </bootpath>
+        <extensionDirs>
+            <entry path="null"/>
+        </extensionDirs>
+        <endorsedDirs>
+            <entry path="null"/>
+        </endorsedDirs>
+    </libraryInfo>
+    <libraryInfo home="C:\spring-tool-suite-4.27.0\spring-tool-suite-4.27.0\sts-4.27.0.RELEASE\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.5.v20241023-1957\jre" version="21.0.5"/>
+</libraryInfos>

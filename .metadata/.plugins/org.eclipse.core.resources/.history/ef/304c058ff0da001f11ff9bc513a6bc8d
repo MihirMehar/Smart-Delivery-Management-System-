@@ -1,0 +1,45 @@
+package com.orderservices.dto;
+
+import java.time.LocalDate;
+
+import com.orderservices.entity.OrderStatus;
+
+
+public class OrderDTO {
+	private String orderId;
+
+	private Long customerId;
+
+	private String productDetails;
+
+	private Double totalAmount;
+
+	private OrderStatus orderStatus;
+
+	private String shippingAddress;
+
+	private LocalDate createdAt;
+
+	private LocalDate updatedAt;
+	
+	private Boolean isDeleted= false;
+
+	public OrderDTO() {
+		super();
+	}
+
+	public OrderDTO(String orderId, Long customerId, String productDetails, Double totalAmount, OrderStatus orderStatus,
+			String shippingAddress, LocalDate createdAt, LocalDate updatedAt) {
+		super();
+		this.orderId = orderId;
+		this.customerId = customerId;
+		this.productDetails = productDetails;
+		this.totalAmount = totalAmount;
+		this.orderStatus = orderStatus;
+		this.shippingAddress = shippingAddress;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+	}
+
+	
+}

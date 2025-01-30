@@ -1,0 +1,51 @@
+package com.deliveryservices.services;
+
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.deliveryservices.entity.Delivery;
+import com.deliveryservices.exception.DeliveryNotFoundException;
+import com.deliveryservices.repository.DeliveryRepository;
+
+@Service
+public class DeliveryServiceImpl  implements DeliveryService{
+	
+	@Autowired
+	private DeliveryRepository deliveryRepository;
+	
+
+	@Override
+	public Delivery createdelivery(Delivery delivery) {
+		String randomId = UUID.randomUUID().toString();
+		delivery.setDeliveryId(randomId);
+		return null;
+	}
+
+	@Override
+	public List<Delivery> getAllData() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Delivery> getdeliveryByOrderId(String deliveryId) throws DeliveryNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Delivery updatedata(String deliveryId, Delivery delivery) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deletedata(String deliveryId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

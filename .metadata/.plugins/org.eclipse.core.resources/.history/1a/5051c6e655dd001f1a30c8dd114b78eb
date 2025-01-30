@@ -1,0 +1,64 @@
+package com.notify.entity;
+
+public class NotificationRequest {
+    private String to;
+    private String subject;
+    private String body;
+
+    // add new field
+    private String notificationType;  //EMAIL,SMS
+    
+    
+    
+    public String getNotificationType() {
+		return notificationType;
+	}
+
+	public void setNotificationType(String notificationType) {
+		this.notificationType = notificationType;
+	}
+
+	// Getters and Setters
+    public String getTo() {
+        return to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+	public NotificationRequest(String to, String subject, String body, String notificationType) {
+		super();
+		this.to = to;
+		this.subject = subject;
+		this.body = body;
+		this.notificationType = notificationType;
+	}
+
+	@Override
+	public String toString() {
+		return "NotificationRequest [to=" + to + ", subject=" + subject + ", body=" + body + ", notificationType="
+				+ notificationType + "]";
+	}
+    
+    
+
+	
+    
+}

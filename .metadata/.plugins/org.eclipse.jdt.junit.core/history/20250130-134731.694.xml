@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="OrderServicesApplicationTests" project="OrderServices" tests="1" started="1" failures="0" errors="0" ignored="0">
+  <testsuite name="com.orderservices.OrderServicesApplicationTests" time="0.222" displayname="OrderServicesApplicationTests" uniqueid="[engine:junit-jupiter]/[class:com.orderservices.OrderServicesApplicationTests]">
+    <testcase name="testCreatedOrder" classname="com.orderservices.OrderServicesApplicationTests" time="0.222" displayname="testCreatedOrder()" uniqueid="[engine:junit-jupiter]/[class:com.orderservices.OrderServicesApplicationTests]/[method:testCreatedOrder()]"/>
+  </testsuite>
+</testrun>

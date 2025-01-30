@@ -1,0 +1,15 @@
+package com.orderservices.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.orderservices.entity.Order;
+
+public interface OrderRepository extends JpaRepository<Order, String> {
+	
+	// creating some customer repository to perform some operation 
+	
+	List<Order> findByCustomerId(Long customerId);
+
+}

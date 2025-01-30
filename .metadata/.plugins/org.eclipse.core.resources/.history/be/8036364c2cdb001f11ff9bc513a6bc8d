@@ -1,0 +1,13 @@
+package com.deliveryservices.externalServices;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.deliveryservices.entity.Order;
+
+public interface OrderServices {
+	
+	@GetMapping("/{orderId}")
+	Order getOrderById(@PathVariable String orderId);
+
+}

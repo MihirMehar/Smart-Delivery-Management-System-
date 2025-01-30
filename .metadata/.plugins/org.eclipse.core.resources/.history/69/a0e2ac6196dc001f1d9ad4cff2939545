@@ -1,0 +1,5 @@
+package com.configserver.config;
+
+public class SecurityConfig {
+
+}

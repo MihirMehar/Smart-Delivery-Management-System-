@@ -1,0 +1,5 @@
+package com.orderservices.entity;
+
+public class Delivery {
+
+}

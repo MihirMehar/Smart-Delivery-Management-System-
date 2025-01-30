@@ -1,0 +1,26 @@
+eureka.instance.hostname=localhost
+eureka.instance.prefer-ip-address=true
+spring.application.name=APIGATEWAY
+server.port =9090
+# Eureka
+eureka.client.register-with-eureka=true
+eureka.client.fetch-registry=true
+eureka.client.service-url.defaultZone=http://localhost:8009/eureka
+
+## Actuator
+management.endpoints.web.exposure.include=*
+
+spring.security.oauth2.resourceserver.jwt.issuer-uri=https://dev-42713647.okta.com
+spring.security.oauth2.resourceserver.jwt.jwk-set-uri=https://dev-42713647.okta.com/oauth2/default/v1/keys
+# Routes (if applicable)
+spring.cloud.gateway.routes[0].id=ORDERSERVICES
+spring.cloud.gateway.routes[0].uri=http://localhost:8585/orders
+spring.cloud.gateway.routes[0].predicates[0]=Path=/orders/**
+
+spring.cloud.gateway.routes[1].id=DELIVERYSERVICES
+spring.cloud.gateway.routes[1].uri=http://localhost:8586/delivery
+spring.cloud.gateway.routes[1].predicates[0]=Path=/delivery/**
+
+spring.cloud.gateway.routes[2].id=NOTIFICATIONSERVICE
+spring.cloud.gateway.routes[2].uri=http://localhost:8587/notifications
+spring.cloud.gateway.routes[2].predicates[0]=Path=/notifications/**

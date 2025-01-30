@@ -1,0 +1,30 @@
+package com.orderservices;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.orderservices.externalServices.DeliveryServices;
+import com.orderservices.externalServices.NotificationService;
+import com.orderservices.repository.OrderRepository;
+import com.orderservices.services.OrderServiceImpl;
+
+@SpringBootTest
+@ExtendWith(MockitoExtension.class)
+public class OrderServicesApplicationTests {
+
+	@InjectMocks
+	private OrderServiceImpl orderServiceImpl;
+	
+	@Mock
+	private OrderRepository orderRepository;
+	
+	@Mock
+	private DeliveryServices deliveryServices;
+	
+	@Mock
+	private NotificationService notificationService;
+}

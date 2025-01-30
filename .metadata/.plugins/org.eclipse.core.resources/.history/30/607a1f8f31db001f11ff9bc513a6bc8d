@@ -1,0 +1,5 @@
+package com.deliveryservices.controller;
+
+public class AppConfig {
+
+}

@@ -1,0 +1,97 @@
+package com.notify;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
+@SpringBootTest
+class NotificationServiceApplicationTests {
+
+    @InjectMocks
+    private NotificationService notificationService;
+
+    @Mock
+    private EmailService emailService;
+
+    @Mock
+    private SMSService smsService;
+
+    private NotificationRequest notificationRequest;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+        notificationRequest = new NotificationRequest();
+    }
+
+    @Test
+    void testSendEmailNotification() {
+        notificationRequest.setNotificationType("EMAIL");
+        notificationRequest.setTo("test@example.com");
+        notificationRequest.setSubject("Test Email");
+        notificationRequest.setBody("This is a test email.");
+
+        // Assuming sendEmail returns a String message
+        when(emailService.sendEmail(notificationRequest)).thenReturn("Email sent successfully!");
+
+        String response = notificationService.sendNotification(notificationRequest);
+        assertEquals("Email sent successfully!", response);
+    }
+
+    @Test
+    void testSendSMSNotification() {
+        notificationRequest.setNotificationType("SMS");
+        notificationRequest.setTo("+1234567890");
+        notificationRequest.setBody("This is a test SMS.");
+
+        // Assuming sendSMS returns a String message
+        when(smsService.sendSMS(notificationRequest)).thenReturn("SMS sent successfully!");
+
+        String response = notificationService.sendNotification(notificationRequest);
+        assertEquals("SMS sent successfully!", response);
+    }
+
+    @Test
+    void testUnsupportedNotificationType() {
+        notificationRequest.setNotificationType("PUSH");
+        
+        String response = notificationService.sendNotification(notificationRequest);
+        assertEquals("Unsupported notification type: PUSH", response);
+    }
+
+    @Test
+    void testNotificationTypeDefaultToEmail() {
+        notificationRequest.setTo("test@example.com");
+        notificationRequest.setSubject("Default Notification");
+        notificationRequest.setBody("This is a default notification.");
+
+        // Assuming sendEmail returns a String message
+        when(emailService.sendEmail(notificationRequest)).thenReturn("Email sent successfully!");
+
+        String response = notificationService.sendNotification(notificationRequest);
+        assertEquals("Email sent successfully!", response);
+    }
+
+    @Test
+    void testExceptionHandling() {
+        notificationRequest.setNotificationType("EMAIL");
+        notificationRequest.setTo("test@example.com");
+        notificationRequest.setSubject("Test Email");
+        notificationRequest.setBody("This is a test email.");
+
+        // Simulate an exception being thrown
+        when(emailService.sendEmail(notificationRequest)).thenThrow(new RuntimeException("Email service is down"));
+
+        String response = notificationService.sendNotification(notificationRequest);
+        assertEquals("Failed to send notification: Email service is down", response);
+    }
+
+    @Test
+    void contextLoads() {
+        // Context loads test
+    }
+}

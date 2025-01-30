@@ -1,0 +1,10 @@
+package com.orderservices.externalServices;
+
+import org.springframework.cloud.openfeign.FeignClient;
+
+@FeignClient(name = "delivery-service", url = "http://localhost:8586/delivery")
+public interface DeliveryServices {
+    
+    @GetMapping("/{deliveryId}")
+    Delivery getDeliveryById(@PathVariable String deliveryId);
+}

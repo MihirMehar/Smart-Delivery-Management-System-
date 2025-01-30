@@ -1,0 +1,86 @@
+package com.notify.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.stereotype.Service;
+
+import com.notify.entity.NotificationRequest;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
+
+@Service
+public class NotificationService {
+
+	@Autowired
+	private JavaMailSenderImpl javaMailSenderImpl;
+
+//	public String sendNotification(NotificationRequest notificationRequest) {
+//		try {
+//			SimpleMailMessage message = new SimpleMailMessage();
+//			message.setTo(notificationRequest.getTo());
+//			message.setSubject(notificationRequest.getSubject());
+//			message.setText(notificationRequest.getBody());
+//			javaMailSenderImpl.send(message);
+//			return "notification sent successfully!";
+//		} catch (Exception e) {
+//			return "Failed to send notification:" + e.getMessage();
+//		}
+//
+//	}
+
+	public String sendNotification(NotificationRequest notificationRequest) {
+		try {
+			if (notificationRequest.getNotificationType() == null
+					|| notificationRequest.getNotificationType().isEmpty()) {
+				notificationRequest.setNotificationType("EMAIL");
+			}
+			switch (notificationRequest.getNotificationType().toUpperCase()) {
+			case "EMAIL":
+				return sendEmail(notificationRequest);
+			case "SMS":
+				return sendSms(notificationRequest);
+			default:
+				return "Unsupported notification type :" + notificationRequest.getNotificationType();
+			}
+
+		} catch (Exception e) {
+			return "Failed to send notification:" + e.getMessage();
+		}
+
+	}
+
+	
+	private String sendEmail(NotificationRequest notificationRequest) {
+		try {
+			SimpleMailMessage message = new SimpleMailMessage();
+
+			message.setTo(notificationRequest.getTo());
+			message.setSubject(notificationRequest.getSubject());
+			message.setText(notificationRequest.getBody());
+			javaMailSenderImpl.send(message);
+			return "Email notification sent successfully !";
+
+		} 
+		catch (Exception e) {
+			return "failed to send email notification"+e.getMessage();
+		}
+	}
+	
+	private String sendSms(NotificationRequest notificationRequest) {
+		// TODO Auto-generated method stub
+		try {
+			Message.creator(new PhoneNumber(notificationRequest.getTo()), new PhoneNumber("17343612819"), notificationRequest.getBody())
+			.create();
+			System.out.println("Sending SMS to " +notificationRequest.getTo() + ":" +notificationRequest.getBody());
+			return "SMS notification sent successfully !";
+		}
+		catch (Exception e) {
+			return "failed to send email notification" +e.getMessage();
+		}
+	}
+
+	
+	
+}

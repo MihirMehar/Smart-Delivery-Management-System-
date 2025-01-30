@@ -1,0 +1,19 @@
+package com.notify.controller;
+
+import org.springframework.context.annotation.Configuration;
+
+import com.twilio.Twilio;
+
+@Configuration
+public class TwilioConfig {
+	
+	
+	private String accountSid;
+	
+	private String authToken;
+	
+	public void initTwilio() {
+		Twilio.init(accountSid,authToken);
+	}
+
+}

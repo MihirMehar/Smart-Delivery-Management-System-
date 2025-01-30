@@ -1,0 +1,65 @@
+package com.orderservices.dto;
+
+import java.time.LocalDate;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import com.orderservices.entity.OrderStatus;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+public class OrderDTO {
+	@Id
+	private String orderId;
+
+	@NotNull(message = "Customer Id cannot be null")
+	private Long customerId;
+
+	@NotBlank(message = "Product details can not be blank")
+	private String productDetails;
+
+	@Min(value = 1, message = "Total amount must be greater than zero")
+	private Double totalAmount;
+
+	@Enumerated(EnumType.STRING)
+	private OrderStatus orderStatus;
+
+	@NotBlank(message = "Shipping address can not be blank")
+	private String shippingAddress;
+
+	@CreatedDate
+	@Column(updatable = false)
+	private LocalDate createdAt;
+
+	@LastModifiedDate
+	private LocalDate updatedAt;
+
+	public OrderDTO(String orderId, @NotNull(message = "Customer Id cannot be null") Long customerId,
+			@NotBlank(message = "Product details can not be blank") String productDetails,
+			@Min(value = 1, message = "Total amount must be greater than zero") Double totalAmount,
+			OrderStatus orderStatus, @NotBlank(message = "Shipping address can not be blank") String shippingAddress,
+			LocalDate createdAt, LocalDate updatedAt) {
+		super();
+		this.orderId = orderId;
+		this.customerId = customerId;
+		this.productDetails = productDetails;
+		this.totalAmount = totalAmount;
+		this.orderStatus = orderStatus;
+		this.shippingAddress = shippingAddress;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+	}
+
+	public OrderDTO() {
+		super();
+	}
+	
+	
+}

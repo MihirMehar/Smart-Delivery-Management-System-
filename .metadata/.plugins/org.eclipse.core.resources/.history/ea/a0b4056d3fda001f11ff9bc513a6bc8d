@@ -1,0 +1,5 @@
+package com.orderservices.exception;
+
+public class ApiResponse {
+
+}

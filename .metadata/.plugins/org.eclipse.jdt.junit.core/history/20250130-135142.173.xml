@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="OrderServicesApplicationTests" project="OrderServices" tests="2" started="2" failures="0" errors="0" ignored="0">
+  <testsuite name="com.orderservices.OrderServicesApplicationTests" time="0.344" displayname="OrderServicesApplicationTests" uniqueid="[engine:junit-jupiter]/[class:com.orderservices.OrderServicesApplicationTests]">
+    <testcase name="testCreatedOrder" classname="com.orderservices.OrderServicesApplicationTests" time="0.308" displayname="testCreatedOrder()" uniqueid="[engine:junit-jupiter]/[class:com.orderservices.OrderServicesApplicationTests]/[method:testCreatedOrder()]"/>
+    <testcase name="testGetOrderById" classname="com.orderservices.OrderServicesApplicationTests" time="0.028" displayname="testGetOrderById()" uniqueid="[engine:junit-jupiter]/[class:com.orderservices.OrderServicesApplicationTests]/[method:testGetOrderById()]"/>
+  </testsuite>
+</testrun>

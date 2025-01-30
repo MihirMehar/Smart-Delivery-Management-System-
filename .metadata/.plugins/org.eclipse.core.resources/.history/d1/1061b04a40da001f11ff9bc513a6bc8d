@@ -1,0 +1,24 @@
+package com.orderservices.services;
+
+import java.util.List;
+
+import com.orderservices.entity.Order;
+import com.orderservices.exception.OrderNotFoundException;
+
+public interface OrderService {
+	
+	// create
+	
+	Order createOrder(Order order);
+	
+	// get
+	
+	List<Order> getAllOrders();
+	
+	// get Order by Id
+	
+	Order getOrderById(String orderId) throws OrderNotFoundException;
+	
+	
+
+}

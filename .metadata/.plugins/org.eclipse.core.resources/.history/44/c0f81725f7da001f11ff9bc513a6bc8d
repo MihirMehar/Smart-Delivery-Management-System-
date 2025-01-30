@@ -1,0 +1,10 @@
+package com.deliveryservices.services;
+
+import com.deliveryservices.entity.DeliveyEntity;
+
+public interface DeliveryService {
+	
+	//create
+	DeliveyEntity
+
+}

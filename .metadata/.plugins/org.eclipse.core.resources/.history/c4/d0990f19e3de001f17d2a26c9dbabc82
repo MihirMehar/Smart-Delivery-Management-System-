@@ -1,0 +1,64 @@
+package com.orderservices;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.orderservices.entity.Order;
+import com.orderservices.entity.OrderStatus;
+import com.orderservices.externalServices.DeliveryServices;
+import com.orderservices.externalServices.NotificationService;
+import com.orderservices.repository.OrderRepository;
+import com.orderservices.services.OrderServiceImpl;
+
+@SpringBootTest
+@ExtendWith(MockitoExtension.class)
+public class OrderServicesApplicationTests {
+
+	@InjectMocks
+	private OrderServiceImpl orderServiceImpl;
+	
+	@Mock
+	private OrderRepository orderRepository;
+	
+	@Mock
+	private DeliveryServices deliveryServices;
+	
+	@Mock
+	private NotificationService notificationService;
+	
+	private Order order;
+	
+	
+	@BeforeEach
+	void setup() {
+		order = new Order();
+		order.setOrderId("12345");
+		order.setCustomerId(101L);
+		order.setCustomerEmail("test@example.com");
+		order.setOrderStatus(OrderStatus.DELIVERED);
+		order.setTotalAmount(500.0);
+		order.setShippingAddress("123 Test Street");
+	}
+	
+	@Test
+	void testCreatedOrder() {
+		when(orderRepository.save(any(Order.class))).thenReturn(order);
+		
+		Order createdOrder = orderServiceImpl.createOrder(order);
+		assertNotNull(createdOrder);
+		assertEquals(order.getOrderId(), createdOrder.getOrderId());
+		verify(orderRepository,times(1)).save(any(Order.class));
+	}
+}

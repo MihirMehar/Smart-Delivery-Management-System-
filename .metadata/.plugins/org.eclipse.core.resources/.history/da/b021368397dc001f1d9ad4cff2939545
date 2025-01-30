@@ -1,0 +1,31 @@
+package com.configserver.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+	
+	
+	    protected void configure(HttpSecurity http) throws Exception {
+            http
+                    .authorizeRequests(requests -> requests
+                            .requestMatchers("/public/**").permitAll() // Allow public access to certain endpoints
+                            .anyRequest().authenticated())
+                    .oauth2ResourceServer(server -> server
+                            .jwt()); // Use JWT for resource server
+	    }
+
+	    @Bean
+	     JwtAuthenticationConverter jwtAuthenticationConverter() {
+	        JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
+	        // Optionally set a custom converter for authorities if needed
+	        return converter;
+	    }
+
+}
+ 

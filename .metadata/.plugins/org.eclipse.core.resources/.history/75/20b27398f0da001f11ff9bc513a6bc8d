@@ -1,0 +1,86 @@
+package com.orderservices.dto;
+
+import java.time.LocalDate;
+
+import com.orderservices.entity.Order;
+import com.orderservices.entity.OrderStatus;
+
+
+public class OrderDTO {
+	private String orderId;
+
+	private Long customerId;
+
+	private String productDetails;
+
+	private Double totalAmount;
+
+	private OrderStatus orderStatus;
+
+	private String shippingAddress;
+
+	private LocalDate createdAt;
+
+	private LocalDate updatedAt;
+	
+	private Boolean isDeleted= false;
+
+	public OrderDTO() {
+		super();
+	}
+
+	public OrderDTO(String orderId, Long customerId, String productDetails, Double totalAmount, OrderStatus orderStatus,
+			String shippingAddress, LocalDate createdAt, LocalDate updatedAt) {
+		super();
+		this.orderId = orderId;
+		this.customerId = customerId;
+		this.productDetails = productDetails;
+		this.totalAmount = totalAmount;
+		this.orderStatus = orderStatus;
+		this.shippingAddress = shippingAddress;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+	}
+
+	
+	 // Convert Order entity to OrderDTO
+    public OrderDTO toDTO(Order order) {
+        if (order == null) {
+            return null;
+        }
+        
+        OrderDTO orderDTO = new OrderDTO();
+        orderDTO.setOrderId(order.getOrderId());
+        orderDTO.setCustomerId(order.getCustomerId());
+        orderDTO.setProductDetails(order.getProductDetails());
+        orderDTO.setTotalAmount(order.getTotalAmount());
+        orderDTO.setOrderStatus(order.getOrderStatus());
+        orderDTO.setShippingAddress(order.getShippingAddress());
+        orderDTO.setCreatedAt(order.getCreatedAt());
+        orderDTO.setUpdatedAt(order.getUpdatedAt());
+        orderDTO.setIsDeleted(order.getIsDeleted());
+        
+        return orderDTO;
+    }
+
+    // Convert OrderDTO to Order entity
+    public Order toEntity(OrderDTO orderDTO) {
+        if (orderDTO == null) {
+            return null;
+        }
+        
+        Order order = new Order();
+        order.setOrderId(orderDTO.getOrderId());
+        order.setCustomerId(orderDTO.getCustomerId());
+        order.setProductDetails(orderDTO.getProductDetails());
+        order.setTotalAmount(orderDTO.getTotalAmount());
+        order.setOrderStatus(orderDTO.getOrderStatus());
+        order.setShippingAddress(orderDTO.getShippingAddress());
+        order.setCreatedAt(orderDTO.getCreatedAt());
+        order.setUpdatedAt(orderDTO.getUpdatedAt());
+        order.setIsDeleted(orderDTO.getIsDeleted());
+        
+        return order;
+    }
+	
+}

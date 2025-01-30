@@ -1,0 +1,5 @@
+package com.orderservices.securityconfig;
+
+public class SwaggerConfig {
+
+}

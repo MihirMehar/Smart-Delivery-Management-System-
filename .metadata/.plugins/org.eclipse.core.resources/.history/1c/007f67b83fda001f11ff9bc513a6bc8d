@@ -1,0 +1,14 @@
+package com.orderservices.exception;
+
+public class OrderNotFoundException extends Exception {
+
+	public OrderNotFoundException() {
+		super("Order not found on the server");
+	}
+	
+	public OrderNotFoundException(String message) {
+		super(message);
+	}
+	
+	 
+}

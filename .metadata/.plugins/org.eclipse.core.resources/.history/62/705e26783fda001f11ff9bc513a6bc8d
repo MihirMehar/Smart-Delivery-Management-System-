@@ -1,0 +1,20 @@
+package com.orderservices.exception;
+
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+	
+	
+	 @ExceptionHandler(OrderNotFoundException.class)
+	    public ResponseEntity<ApiResponse> handleResourceNotFoundException(OrderNotFoundException exception)
+	    {
+	        ApiResponse api = new ApiResponse();
+	      //  LOGGER.error(exception.getMessage(), exception);Order
+	        api.setStatus(HttpStatus.NOT_FOUND);
+	        api.setMessage(exception.getMessage());
+	        return new ResponseEntity<>(api,HttpStatus.NOT_FOUND);
+	    }
+
+}

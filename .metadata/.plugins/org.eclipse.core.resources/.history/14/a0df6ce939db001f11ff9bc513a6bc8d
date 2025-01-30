@@ -1,0 +1,6 @@
+spring.application.name=ConfigerationServer
+server.port =8888
+spring.cloud.config.server.git.uri = C:/Users/mihir.mehar/configserver
+spring.cloud.config.server.git.default-label=master
+
+management.endpoints.web.exposure.include=*

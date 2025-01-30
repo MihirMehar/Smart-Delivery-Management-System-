@@ -1,0 +1,95 @@
+package com.notify;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+ 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.mail.javamail.JavaMailSender;
+
+import com.notify.entity.NotificationRequest;
+import com.notify.service.NotificationService;
+
+import org.springframework.mail.SimpleMailMessage;
+ 
+@ExtendWith(MockitoExtension.class)
+public class NotificationServiceApplicationTests {
+ 
+    @Mock
+    private JavaMailSender mailSender; // Mock JavaMailSender
+ 
+    @InjectMocks
+    private NotificationService notificationService; // Inject the service
+ 
+    private NotificationRequest emailRequest;
+    private NotificationRequest smsRequest;
+    private NotificationRequest invalidRequest;
+ 
+    @BeforeEach
+    void setUp() {
+        emailRequest = new NotificationRequest("EMAIL", "test@example.com", "Test Subject", "Test Body");
+        smsRequest = new NotificationRequest("SMS", "+1234567890", null, "Test SMS");
+        invalidRequest = new NotificationRequest("WHATSAPP", "test@example.com", "Test Subject", "Test Body"); // Unsupported
+    }
+ 
+    /** ✅ Test Case 1: Send Email Successfully */
+    @Test
+    void testSendEmailSuccess() {
+        doNothing().when(mailSender).send(any(SimpleMailMessage.class));
+ 
+        String response = notificationService.sendNotification(emailRequest);
+ 
+        assertEquals("Email notification sent successfully!", response);
+        verify(mailSender, times(1)).send(any(SimpleMailMessage.class));
+    }
+ 
+    /** ❌ Test Case 2: Email Sending Failure */
+    @Test
+    void testSendEmailFailure() {
+        doThrow(new RuntimeException("SMTP error")).when(mailSender).send(any(SimpleMailMessage.class));
+ 
+        String response = notificationService.sendNotification(emailRequest);
+ 
+        assertEquals("Failed to send email.", response);
+    }
+ 
+    /** ✅ Test Case 3: Send SMS Successfully (Mock Implementation) */
+    @Test
+    void testSendSmsSuccess() {
+        String response = notificationService.sendNotification(smsRequest);
+ 
+        assertEquals("SMS notification sent successfully!", response);
+    }
+ 
+    /** ❌ Test Case 4: SMS Sending Failure */
+    @Test
+    void testSendSmsFailure() {
+        NotificationRequest invalidSmsRequest = new NotificationRequest("SMS", null, null, null);
+ 
+        String response = notificationService.sendNotification(invalidSmsRequest);
+ 
+        assertEquals("Failed to send SMS.", response);
+    }
+ 
+    /** ⚠️ Test Case 5: Unsupported Notification Type */
+    @Test
+    void testUnsupportedNotificationType() {
+        String response = notificationService.sendNotification(invalidRequest);
+ 
+        assertEquals("Failed: Unsupported notification type.", response);
+    }
+ 
+    /** ⚠️ Test Case 6: Invalid Request Data */
+    @Test
+    void testInvalidRequestData() {
+        NotificationRequest emptyRequest = new NotificationRequest(null, null, null, null);
+ 
+        String response = notificationService.sendNotification(emptyRequest);
+ 
+        assertEquals("Failed: Unsupported notification type.", response);
+    }
+}

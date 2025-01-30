@@ -1,0 +1,5 @@
+package com.notify.controller;
+
+public class NotificationController {
+
+}

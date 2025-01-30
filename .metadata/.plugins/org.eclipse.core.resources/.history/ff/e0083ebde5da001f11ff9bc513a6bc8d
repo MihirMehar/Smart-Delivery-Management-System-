@@ -1,0 +1,34 @@
+package com.orderservices.exception;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+	
+	@Autowired
+	private Environment environment;
+	
+	 @ExceptionHandler(OrderNotFoundException.class)
+	    public ResponseEntity<ApiResponse> handleResourceNotFoundException(OrderNotFoundException exception)
+	    {
+	        ApiResponse api = new ApiResponse();
+	        api.setStatus(HttpStatus.NOT_FOUND);
+	        api.setMessage(exception.getMessage());
+	        return new ResponseEntity<>(api,HttpStatus.NOT_FOUND);
+	    }
+	 
+	 @ExceptionHandler(Exception.class)
+	    public ResponseEntity<ApiResponse> handleResourceNotFoundException(Exception exception)
+	    {
+	        ApiResponse api = new ApiResponse();
+	        api.setStatus(HttpStatus.BAD_REQUEST);
+	        api.setMessage(environment.getProperty(exception.getMessage()));
+	        return new ResponseEntity<>(api,HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+
+}

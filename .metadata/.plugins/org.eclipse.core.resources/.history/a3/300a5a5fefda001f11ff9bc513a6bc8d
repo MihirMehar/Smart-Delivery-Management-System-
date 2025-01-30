@@ -1,0 +1,5 @@
+package com.orderservices.dto;
+
+public class OrderDTO {
+
+}

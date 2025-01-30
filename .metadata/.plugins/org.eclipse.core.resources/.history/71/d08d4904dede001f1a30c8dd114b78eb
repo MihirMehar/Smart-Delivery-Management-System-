@@ -1,0 +1,201 @@
+package com.orderservices;
+
+import com.orderservices.entity.Delivery;
+import com.orderservices.entity.NotificationRequest;
+import com.orderservices.entity.Order;
+import com.orderservices.entity.OrderStatus;
+import com.orderservices.exception.OrderNotFoundException;
+import com.orderservices.externalServices.DeliveryServices;
+import com.orderservices.externalServices.NotificationService;
+import com.orderservices.repository.OrderRepository;
+import com.orderservices.services.OrderServiceImpl;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+@SpringBootTest
+public class OrderServicesApplicationTests {
+
+    @InjectMocks
+    private OrderServiceImpl orderService;
+
+    @Mock
+    private OrderRepository orderRepository;
+
+    @Mock
+    private DeliveryServices deliveryServices;
+
+    @Mock
+    private NotificationService notificationService;
+
+    private Order order;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+
+        // Initialize a sample order
+        order = new Order();
+        order.setOrderId("order-123");
+        order.setCustomerId(1L);
+        order.setCustomerEmail("customer@example.com");
+        order.setOrderStatus(OrderStatus.PENDING);
+        order.setCreatedAt(LocalDate.now());
+        order.setUpdatedAt(LocalDate.now());
+        order.setProductDetails("Sample Product");
+        order.setTotalAmount(100.0);
+        order.setShippingAddress("123 Main St, Anytown USA");
+    }
+
+    @Test
+    void testCreateOrder() {
+        when(orderRepository.save(any(Order.class))).thenReturn(order);
+
+        Order createdOrder = orderService.createOrder(order);
+
+        assertNotNull(createdOrder.getOrderId());
+        assertEquals(order.getCustomerId(), createdOrder.getCustomerId());
+        verify(orderRepository, times(1)).save(order);
+    }
+
+    @Test
+    void testGetAllOrders() {
+        List<Order> orders = new ArrayList<>();
+        orders.add(order);
+
+        when(orderRepository.findAll()).thenReturn(orders);
+
+        List<Order> result = orderService.getAllOrders();
+
+        assertEquals(1, result.size());
+        assertEquals(order, result.get(0));
+    }
+
+    @Test
+    void testGetOrderById() throws OrderNotFoundException {
+        when(orderRepository.findById("order-123")).thenReturn(Optional.of(order));
+
+        Order result = orderService.getOrderById("order-123");
+
+        assertEquals(order, result);
+    }
+
+    @Test
+    void testGetOrderByIdNotFound() {
+        when(orderRepository.findById("order-123")).thenReturn(Optional.empty());
+
+        assertThrows(OrderNotFoundException.class, () -> orderService.getOrderById("order-123"));
+    }
+
+    @Test
+    void testUpdateOrder() throws OrderNotFoundException {
+        when(orderRepository.findById("order-123")).thenReturn(Optional.of(order));
+        when(orderRepository.save(any(Order.class))).thenReturn(order);
+
+        Order updatedOrder = new Order();
+        updatedOrder.setCustomerEmail("updated@example.com");
+        updatedOrder.setOrderStatus(OrderStatus.SHIPPED);
+
+        Order result = orderService.updateOrder("order-123", updatedOrder);
+
+        assertEquals("updated@example.com", result.getCustomerEmail());
+        assertEquals(OrderStatus.SHIPPED, result.getOrderStatus());
+        verify(notificationService, times(1)).sendNotifiactions(any(NotificationRequest.class));
+    }
+
+    @Test
+    void testDeleteOrder() throws OrderNotFoundException {
+        when(orderRepository.findById("order-123")).thenReturn(Optional.of(order));
+
+        orderService.deleteOrder("order-123");
+
+        verify(orderRepository, times(1)).deleteById("order-123");
+    }
+
+    @Test
+    void testGetOrdersByCustomerId() {
+        List<Order> orders = new ArrayList<>();
+        orders.add(order);
+
+        List<Delivery> deliveries = new ArrayList<>();
+        Delivery delivery = new Delivery();
+        delivery.setOrderId("order-123");
+        deliveries.add(delivery);
+
+        when(orderRepository.findByCustomerId(1L)).thenReturn(orders);
+        when(deliveryServices.getAllDeliveris()).thenReturn(deliveries);
+
+        List<Order> result = orderService.getOrdersByCustomerId(1L);
+
+        assertEquals(1, result.size());
+        assertEquals(1, result.get(0).getDelivery().size());
+    }
+
+    @Test
+    void testFallbackGetOrdersByCustomerId() {
+        List<Order> result = orderService.fallbackGetOrdersByCustomerId(1L, new RuntimeException("Service down"));
+
+        assertEquals(1, result.size());
+        assertEquals("dummy12345", result.get(0).getOrderId());
+        assertEquals(OrderStatus.PENDING, result.get(0).getOrderStatus());
+    }
+
+    @Test
+    void testGetOrdersByStatus() {
+        List<Order> orders = new ArrayList<>();
+        orders.add(order);
+
+        when(orderRepository.findByOrderStatus(OrderStatus.PENDING)).thenReturn(orders);
+
+        List<Order> result = orderService.getOrdersByStatus(OrderStatus.PENDING);
+
+        assertEquals(1, result.size());
+        assertEquals(OrderStatus.PENDING, result.get(0).getOrderStatus());
+    }
+
+    @Test
+    void testGetOrdersCreatedAfter() {
+        List<Order> orders = new ArrayList<>();
+        orders.add(order);
+
+        when(orderRepository.findOrdersCreatedAfter(LocalDate.now().minusDays(1))).thenReturn(orders);
+
+        List<Order> result = orderService.getOrdersCreatedAfter(LocalDate.now().minusDays(1));
+
+        assertEquals(1, result.size());
+        assertEquals(order, result.get(0));
+    }
+
+    @Test
+    void testGetAllOrdersWithPagination() {
+        List<Order> orders = new ArrayList<>();
+        orders.add(order);
+
+        Page<Order> page = new PageImpl<>(orders);
+        Pageable pageable = PageRequest.of(0, 10);
+
+        when(orderRepository.findAll(pageable)).thenReturn(page);
+
+        Page<Order> result = orderService.getAllOrders(pageable);
+
+        assertEquals(1, result.getContent().size());
+        assertEquals(order, result.getContent().get(0));
+    }
+}

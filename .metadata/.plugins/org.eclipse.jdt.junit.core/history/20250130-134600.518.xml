@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="OrderServicesApplicationTests" project="OrderServices" tests="1" started="1" failures="1" errors="0" ignored="0">
+  <testsuite name="com.orderservices.OrderServicesApplicationTests" time="0.333" displayname="OrderServicesApplicationTests" uniqueid="[engine:junit-jupiter]/[class:com.orderservices.OrderServicesApplicationTests]">
+    <testcase name="testCreatedOrder" classname="com.orderservices.OrderServicesApplicationTests" time="0.333" displayname="testCreatedOrder()" uniqueid="[engine:junit-jupiter]/[class:com.orderservices.OrderServicesApplicationTests]/[method:testCreatedOrder()]">
+      <failure>
+        <expected>12345</expected>
+        <actual>91363c62-cabb-4ffa-bf67-cf4935185bd2</actual>
+        org.opentest4j.AssertionFailedError: expected: &lt;12345&gt; but was: &lt;91363c62-cabb-4ffa-bf67-cf4935185bd2&gt;&#13;
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)&#13;
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)&#13;
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)&#13;
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)&#13;
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)&#13;
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)&#13;
+	at com.orderservices.OrderServicesApplicationTests.testCreatedOrder(OrderServicesApplicationTests.java:61)&#13;
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)&#13;
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)&#13;
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)&#13;
+&#13;
+
+      </failure>
+    </testcase>
+  </testsuite>
+</testrun>

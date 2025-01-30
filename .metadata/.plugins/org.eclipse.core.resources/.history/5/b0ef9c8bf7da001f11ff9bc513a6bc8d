@@ -1,0 +1,12 @@
+package com.deliveryservices.exception;
+
+public class DeliveryNotFoundException extends Exception {
+
+	public DeliveryNotFoundException() {
+		super();
+	}
+	
+	public DeliveryNotFoundException(String message) {
+		super(message);
+	}
+}

@@ -1,0 +1,24 @@
+package com.orderservices.entity;
+
+
+
+import jakarta.persistence.Id;
+
+public class Delivery {
+	
+	
+	private String deliveryId;
+	private String orderId;
+	private String Address;
+	private DeliveryStatus deliveryStatus;
+	
+	private String trackingNumber;
+	private String shoppingProvider;
+	
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	private LocalDate estimatedDeliveyDate;
+	
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	private LocalDate actualDeliveryDate;
+	
+	private boolean isDelivered;

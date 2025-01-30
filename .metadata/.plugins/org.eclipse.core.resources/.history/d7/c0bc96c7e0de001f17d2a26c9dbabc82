@@ -1,0 +1,122 @@
+package com.orderservices;
+
+import com.orderservices.entity.Delivery;
+import com.orderservices.entity.NotificationRequest;
+import com.orderservices.entity.Order;
+import com.orderservices.entity.OrderStatus;
+import com.orderservices.exception.OrderNotFoundException;
+import com.orderservices.externalServices.DeliveryServices;
+import com.orderservices.externalServices.NotificationService;
+import com.orderservices.repository.OrderRepository;
+import com.orderservices.services.OrderServiceImpl;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+@SpringBootTest
+class OrderServicesApplicationTests {
+
+	@InjectMocks
+	private OrderServiceImpl orderService;
+
+	@Mock
+	private OrderServiceImpl orderRepository;
+
+	@Mock
+	private DeliveryServices deliveryServices;
+
+	@Mock
+	private NotificationService notificationService;
+
+	private Order order;
+
+	@BeforeEach
+	void setUp() {
+		MockitoAnnotations.openMocks(this);
+
+		// Initialize a sample order
+		order = new Order();
+		order.setOrderId("order-123");
+		order.setCustomerId(1L);
+		order.setCustomerEmail("customer@example.com");
+		order.setOrderStatus(OrderStatus.PENDING);
+		order.setCreatedAt(LocalDate.now());
+		order.setUpdatedAt(LocalDate.now());
+		order.setProductDetails("Sample Product");
+		order.setTotalAmount(100.0);
+		order.setShippingAddress("123 Main St, Anytown USA");
+	}
+
+	@Test
+	void testGetOrdersByCustomerId() {
+		List<Order> orders = new ArrayList<>();
+		orders.add(order);
+
+		List<Delivery> deliveries = new ArrayList<>();
+		Delivery delivery = new Delivery();
+		delivery.setOrderId("order-123");
+		deliveries.add(delivery);
+
+		when(orderRepository.getOrdersByCustomerId(1L)).thenReturn(orders);
+		when(deliveryServices.getAllDeliveris()).thenReturn(deliveries);
+
+		List<Order> result = orderService.getOrdersByCustomerId(1L);
+
+		assertEquals(1, result.size());
+		assertEquals(1, result.get(0).getDelivery().size());
+	}
+
+	
+	@Test
+	void testFallbackGetOrdersByCustomerId() {
+		List<Order> result = orderService.fallbackGetOrdersByCustomerId(1L, new RuntimeException("Service down"));
+
+		assertEquals(1, result.size());
+		assertEquals("dummy12345", result.get(0).getOrderId());
+		assertEquals(OrderStatus.PENDING, result.get(0).getOrderStatus());
+	}
+
+	@Test
+	void testGetOrdersByStatus() {
+		List<Order> orders = new ArrayList<>();
+		orders.add(order);
+
+		when(orderRepository.getOrdersByStatus(OrderStatus.PENDING)).thenReturn(orders);
+
+		List<Order> result = orderService.getOrdersByStatus(OrderStatus.PENDING);
+
+		assertEquals(1, result.size());
+		assertEquals(OrderStatus.PENDING, result.get(0).getOrderStatus());
+	}
+
+	@Test
+	void testGetOrdersCreatedAfter() {
+		List<Order> orders = new ArrayList<>();
+		orders.add(order);
+
+		when(orderRepository.getOrdersCreatedAfter(LocalDate.now().minusDays(1))).thenReturn(orders);
+
+		List<Order> result = orderService.getOrdersCreatedAfter(LocalDate.now().minusDays(1));
+
+		assertEquals(1, result.size());
+		assertEquals(order, result.get(0));
+	}
+
+}

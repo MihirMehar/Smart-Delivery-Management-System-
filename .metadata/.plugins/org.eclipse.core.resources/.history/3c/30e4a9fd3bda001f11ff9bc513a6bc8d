@@ -1,0 +1,101 @@
+package com.orderservices.entity;
+
+import java.time.LocalDate;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+import lombok.Setter;
+import lombok.ToString;
+
+@ToString
+@Entity
+@Table(name = "orders")
+@Getter
+@Setter
+public class Order {
+	
+	@Id
+	private String orderId;
+	private Long customerId;
+	private String productDetails;
+	private Double totalAmount;
+	
+	@Enumerated(EnumType.STRING)
+	private OrderStatus  orderStatus;
+	private String shippingAddress;
+	private LocalDate createdAt;
+	
+//	
+//	public String getOrderId() {
+//		return orderId;
+//	}
+//	public void setOrderId(String orderId) {
+//		this.orderId = orderId;
+//	}
+//	public Long getCustomerId() {
+//		return customerId;
+//	}
+//	public void setCustomerId(Long customerId) {
+//		this.customerId = customerId;
+//	}
+//	public String getProductDetails() {
+//		return productDetails;
+//	}
+//	public void setProductDetails(String productDetails) {
+//		this.productDetails = productDetails;
+//	}
+//	public Double getTotalAmount() {
+//		return totalAmount;
+//	}
+//	public void setTotalAmount(Double totalAmount) {
+//		this.totalAmount = totalAmount;
+//	}
+//	public OrderStatus getOrderStatus() {
+//		return orderStatus;
+//	}
+//	public void setOrderStatus(OrderStatus orderStatus) {
+//		this.orderStatus = orderStatus;
+//	}
+//	public String getShippingAddress() {
+//		return shippingAddress;
+//	}
+//	public void setShippingAddress(String shippingAddress) {
+//		this.shippingAddress = shippingAddress;
+//	}
+//	public LocalDate getCreatedAt() {
+//		return createdAt;
+//	}
+//	public void setCreatedAt(LocalDate createdAt) {
+//		this.createdAt = createdAt;
+//	}
+//	@Override
+//	public String toString() {
+//		return "Order [orderId=" + orderId + ", customerId=" + customerId + ", productDetails=" + productDetails
+//				+ ", totalAmount=" + totalAmount + ", orderStatus=" + orderStatus + ", shippingAddress="
+//				+ shippingAddress + ", createdAt=" + createdAt + "]";
+//	}
+//	public Order(String orderId, Long customerId, String productDetails, Double totalAmount, OrderStatus orderStatus,
+//			String shippingAddress, LocalDate createdAt) {
+//		super();
+//		this.orderId = orderId;
+//		this.customerId = customerId;
+//		this.productDetails = productDetails;
+//		this.totalAmount = totalAmount;
+//		this.orderStatus = orderStatus;
+//		this.shippingAddress = shippingAddress;
+//		this.createdAt = createdAt;
+//	}
+//	public Order() {
+//		super();
+//	}
+//	
+//	
+	
+	
+	
+
+}

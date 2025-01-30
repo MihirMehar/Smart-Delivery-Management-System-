@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="OrderServicesApplicationTests" project="OrderServices" tests="5" started="5" failures="0" errors="0" ignored="0">
+  <testsuite name="com.orderservices.OrderServicesApplicationTests" time="0.49" displayname="OrderServicesApplicationTests" uniqueid="[engine:junit-jupiter]/[class:com.orderservices.OrderServicesApplicationTests]">
+    <testcase name="testCreatedOrder" classname="com.orderservices.OrderServicesApplicationTests" time="0.31" displayname="testCreatedOrder()" uniqueid="[engine:junit-jupiter]/[class:com.orderservices.OrderServicesApplicationTests]/[method:testCreatedOrder()]"/>
+    <testcase name="testGetOrderById_notfound" classname="com.orderservices.OrderServicesApplicationTests" time="0.047" displayname="testGetOrderById_notfound()" uniqueid="[engine:junit-jupiter]/[class:com.orderservices.OrderServicesApplicationTests]/[method:testGetOrderById_notfound()]"/>
+    <testcase name="testUpdatedOrder_Success" classname="com.orderservices.OrderServicesApplicationTests" time="0.039" displayname="testUpdatedOrder_Success()" uniqueid="[engine:junit-jupiter]/[class:com.orderservices.OrderServicesApplicationTests]/[method:testUpdatedOrder_Success()]"/>
+    <testcase name="testGetOrderById" classname="com.orderservices.OrderServicesApplicationTests" time="0.027" displayname="testGetOrderById()" uniqueid="[engine:junit-jupiter]/[class:com.orderservices.OrderServicesApplicationTests]/[method:testGetOrderById()]"/>
+    <testcase name="testUpdatedOrder_NotFound" classname="com.orderservices.OrderServicesApplicationTests" time="0.025" displayname="testUpdatedOrder_NotFound()" uniqueid="[engine:junit-jupiter]/[class:com.orderservices.OrderServicesApplicationTests]/[method:testUpdatedOrder_NotFound()]"/>
+  </testsuite>
+</testrun>
