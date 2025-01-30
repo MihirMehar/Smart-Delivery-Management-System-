@@ -54,7 +54,8 @@ The **Smart Delivery Management System (SDMS)** is an innovative, fully integrat
  
 ### To run the project locally:
 1. Clone the repository:
-   ```bash  git clone https://github.com/MihirMehar/Smart-Delivery-Management-System.git
+   ```bash
+   git clone https://github.com/MihirMehar/Smart-Delivery-Management-System.git
 2. Navigate to the root directory of the project. 
 3. Build and run the services:
  mvn clean install
